@@ -11,7 +11,7 @@
   --line-color-light4: #ececec;
   --aczent-font: #2196f3;
   --aczent-font-active: #188ce8;
-  --transition-dur-and-func: 250ms linear;
+  --transition-dur-and-func: 250ms cubic-bezier(0.4, 0, 0.2, 1) linear;
 }
 
 h1,
@@ -123,16 +123,40 @@ body {
   transition: color var(--transition-dur-and-func);
 }
 
-.menu-link-active {
-  color: var(--aczent-font);
-}
-
 .menu-link:hover,
 .menu-link:focus {
   color: var(--aczent-font);
 }
 
+.menu-link-active {
+  position: relative;
+  color: var(--aczent-font);
+}
 
+.menu-link-active .current-link::after {
+  position: absolute;
+  display: block;
+  content: "";
+  left: 0;
+  top: 53px;
+  width: 100%;
+  height: 4px;
+  background: #2196F3;
+  border-radius: 2px;
+
+}
+
+ .menu-link-active .current-link-prtf::after {
+  position: absolute;
+  display: block;
+  content: "";
+  left: 0;
+  top: 53px;
+  width: 100%;
+  height: 4px;
+  background: #2196F3;
+  border-radius: 2px;
+}
 
 .envelope-icon {
   width: 16px;
@@ -239,7 +263,8 @@ body {
   border: none;
   margin-left: auto;
   margin-right: auto;
-  transition: color var(--transition-dur-and-func), background-color var(--transition-dur-and-func);
+  cursor: pointer;
+  transition: background-color var(--transition-dur-and-func), box-shadow var(--transition-dur-and-func);
 }
 
 .modal-open-btn:hover,
@@ -388,6 +413,7 @@ body {
   border-radius: 50%;
   background-color: var(--primary-text-color-light);
   fill: #AFB1B8;
+  transition: background-color var(--transition-dur-and-func);
 }
 
 .social-list-link:hover,
@@ -403,6 +429,7 @@ body {
 .social-list-icon {
   width: 20px;
   height: 20px;
+  transition: fill var(--transition-dur-and-func);
  
 }
 
@@ -436,6 +463,7 @@ body {
   border-radius: 4px;
   background-color: var(--primary-text-color-light);
   fill: #AFB1B8;
+  transition: border var(--transition-dur-and-func);
 }
 
 .client-list-link:hover,
@@ -453,6 +481,7 @@ body {
 .client-list-icon {
   width: 106px;
   height: 60px;
+  transition: fill var(--transition-dur-and-func);
 }
 
 /*==========main==========*/
@@ -523,13 +552,13 @@ body {
   transition: color var(--transition-dur-and-func);
 }
 
-.contact-phone-number1:hover,
-.contact-phone-number1:focus {
+.contact-email1:hover,
+.contact-email1:focus {
   color: var(--aczent-font);
 }
 
-.contact-email1:hover,
-.contact-email1:focus {
+.contact-phone-number1:hover,
+.contact-phone-number1:focus {
   color: var(--aczent-font);
 }
 
@@ -560,6 +589,7 @@ body {
   height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
+  transition: background-color var(--transition-dur-and-func);
   
 }
 
@@ -577,6 +607,7 @@ body {
   width: 20px;
   height: 20px;
   fill: var(--primary-text-color-light);
+  transition: fill var(--transition-dur-and-func);
 }
 
 .container-footer {
@@ -613,6 +644,14 @@ body {
   margin: -1px;
 }
 
+.bunton-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 50px;
+}
+
 .modal-open-btn-portfolio {
   font-weight: 500;
   font-style: normal;
@@ -624,38 +663,18 @@ body {
   color: var(--primary-text-color-dark);
   background-color: var(--section-color-light2);
   padding: 6px 22px;
-  transition: color var(--transition-dur-and-func), background-color var(--transition-dur-and-func);
-}
-
-.bunton-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 50px;
+  transition: color var(--transition-dur-and-func), 
+  background-color var(--transition-dur-and-func), 
+  box-shadow var(--transition-dur-and-func);
 }
 
 .modal-open-btn-portfolio:hover,
 .modal-open-btn-portfolio:focus {
+  color: var(--primary-text-color-light);
   background: var(--aczent-font);
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 
   0px 1px 2px rgba(0, 0, 0, 0.08),
   0px 2px 2px rgba(0, 0, 0, 0.12);
-}
-
-.modal-open-btn-portfolio:hover,
-.modal-open-btn-portfolio:focus {
-  color: var(--primary-text-color-light);
-}
-
-.modal-open-btn-portfolio-1:hover,
-.modal-open-btn-portfolio:focus {
-  background: var(--aczent-font);
-}
-
-.modal-open-btn-portfolio-1:hover,
-.modal-open-btn-portfolio:focus {
-  color: var(--primary-text-color-light);
 }
 
 .title-portfolio {
@@ -737,6 +756,52 @@ body {
   1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-
-
 /*==========/main-portfolio==========*/
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity var(--transition-dur-and-func), visibility var(--transition-dur-and-func);
+  }
+
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 528px;
+  height: 580px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
