@@ -428,7 +428,7 @@ body {
   border-radius: 50%;
   background-color: var(--primary-text-color-light);
   fill: #AFB1B8;
-  transition: background-color var(--transition-dur-and-func);
+  transition: background-color var(--transition-dur-and-func), fill var(--transition-dur-and-func);
 }
 
 .social-list-link:hover,
@@ -444,7 +444,6 @@ body {
 .social-list-icon {
   width: 20px;
   height: 20px;
-  transition: fill var(--transition-dur-and-func);
 }
 
 .section-client {
